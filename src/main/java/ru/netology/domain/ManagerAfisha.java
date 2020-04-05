@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Manager {
+public class ManagerAfisha {
     private int neededQuantityOfFilmsToAdd = 3;
 
     AfishaData[] list = {new AfishaData(1, "Onward", "cartoon"),
@@ -38,4 +38,3 @@ public class Manager {
         return new AfishaData[0];
     }
 }
-
