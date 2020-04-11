@@ -8,31 +8,42 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AfishaManager {
-    private AfishaRepository repo;
-    private int neededQuantityOfFilmsToAdd = 3;
+    private AfishaRepository repository = new AfishaRepository();
 
-    public AfishaManager(AfishaRepository repository) {
-        this.repo = repository;
+    public void addFilm(Film film) {
+        repository.save(film);
     }
 
-    public void addFilm(AfishaData film) {
-        repo.save(film);
-    }
-
-    public AfishaData[] showAddedFilms() {
-        int c = 0;
-        AfishaData[] listNew = new AfishaData[neededQuantityOfFilmsToAdd];
-        AfishaData[] all = repo.findAll();
-        for (int i = all.length - 1; i > all.length - (neededQuantityOfFilmsToAdd + 1) && i >= 0; i--) {
-            listNew[c] = all[i];
-            System.out.print(all[i]);
-            c++;
+    public Film[] getLastAdded(int howManyFilmsToShow) {
+        Film[] films = repository.findAll();
+        int filmsLength = films.length;
+        int showMax = 10;
+        if (howManyFilmsToShow <= 0 || howManyFilmsToShow > showMax) {
+            howManyFilmsToShow = showMax;
         }
-        return listNew;
+        if (showMax > filmsLength) {
+            showMax = filmsLength;
+        }
+        if (howManyFilmsToShow <= showMax) {
+            showMax = howManyFilmsToShow;
+        } else {
+            showMax = filmsLength;
+        }
+        Film[] customFilm = new Film[showMax];
+        for (int current = 0; current < customFilm.length; current++) {
+            int result = filmsLength - current - 1;
+            customFilm[current] = films[result];
+        }
+        return customFilm;
     }
 
-    public AfishaData[] showAll() {
-        AfishaData[] all = repo.findAll();
-        return all;
+    public Film[] getAll() {
+        Film[] films = repository.findAll();
+        Film[] result = new Film[films.length];
+        for (int i = 0; i < result.length; i++) {
+            int index = films.length - i - 1;
+            result[i] = films[index];
+        }
+        return result;
     }
 }

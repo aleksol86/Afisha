@@ -7,15 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AfishaData {
+public class Film {
     private int id;
-    private String name;
+    private String title;
     private String genre;
-
-    @Override
-    public String toString() {
-        return "Film: " +
-                "id " + id + ", " + name + ", " +
-                genre + "\n";
-    }
 }

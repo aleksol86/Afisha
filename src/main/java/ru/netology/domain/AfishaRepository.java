@@ -1,67 +1,56 @@
 package ru.netology.domain;
 
 public class AfishaRepository {
+    private Film[] films = {
+            new Film(1, "Bloodshot", "action"),
+            new Film(2, "The Gentlemen", "action"),
+            new Film(3, "Invisible Man", "horror"),
+            new Film(4, "Number One", "comedy"),
+            new Film(5, "Interstellar", "sci-fi"),
+            new Film(6, "Midsommar", "thriller"),
+            new Film(7, "Onward", "cartoon"),
+            new Film(8, "Terminator2", "action/sci-fi"),
+            new Film(9, "Hotel Belgrad", "comedy"),
+            new Film(10, "Joker", "tragedy"),
+            new Film(11, "Isle of dogs", "cartoon"),
+            new Film(12, "Up", "cartoon")
+    };
 
-    private AfishaData[] list = {new AfishaData(1, "Onward", "cartoon"),
-            new AfishaData(2, "Bladshort", "action"),
-            new AfishaData(3, "Gentlemen", "action"),
-            new AfishaData(4, "Invisible", "Thriller"),
-            new AfishaData(5, "Troll's tour", "cartoon"),
-            new AfishaData(7, "I BelieveInLove", "romance"),
-            new AfishaData(8, "MyFriendMrPercivalle", "children")};
-
-    AfishaData film = new AfishaData(9, "For all Mankind", "serial");
-
-    AfishaData[] findAll() {
-        for (int i = 0; i < list.length; i++) {
-            System.out.println(list[i]);
-        }
-        return list;
+    public Film[] findAll() {
+        return films;
     }
 
-    void save(AfishaData film) {
-        int length = list.length + 1;
-        AfishaData[] addedFilm = new AfishaData[length];
-        for (int i = 0; i < list.length; i++) {
-            addedFilm[i] = list[i];
-        }
-        int lastIndex = addedFilm.length - 1;
-        addedFilm[lastIndex] = film;
-        list = addedFilm;
+    public void save(Film film) {
+        Film[] tmpArray = new Film[films.length + 1];
+        System.arraycopy(films, 0, tmpArray, 0, films.length);
+        int lastIndex = tmpArray.length - 1;
+        tmpArray[lastIndex] = film;
+        films = tmpArray;
     }
 
-    AfishaData findByID(int id) {
-        for (AfishaData item : list) {
-            if (item.getId() == id) {
-                return item;
+    public Film findById(int id) {
+        for (Film film : films) {
+            if (film.getId() == id) {
+                return film;
             }
         }
         return null;
     }
 
     void removeById(int id) {
-        boolean b = false;
-        for (AfishaData item : list) {
-            if (item.getId() == id) {
-                b = true;
-                break;
+        int length = films.length - 1;
+        Film[] tmpArray = new Film[length];
+        int i = 0;
+        for (Film film : films) {
+            if (film.getId() != id) {
+                tmpArray[i] = film;
+                i++;
             }
         }
-        if (b) {
-            int length = list.length - 1;
-            AfishaData[] newArray = new AfishaData[length];
-            int index = 0;
-            for (AfishaData item : list) {
-                if (item.getId() != id) {
-                    newArray[index] = item;
-                    index++;
-                }
-            }
-            list = newArray;
-        }
+        films = tmpArray;
     }
 
     void removeAll() {
-        list = new AfishaData[0];
+        films = new Film[0];
     }
 }

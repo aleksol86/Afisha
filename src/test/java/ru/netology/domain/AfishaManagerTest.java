@@ -1,46 +1,68 @@
 package ru.netology.domain;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 
-@ExtendWith(MockitoExtension.class)
 class AfishaManagerTest {
+    private AfishaManager manager = new AfishaManager();
+    private Film filmToAdd = new Film(33, "Dunkerk", "action");
+    private Film[] expected;
 
-    @Mock
-    private AfishaRepository list;
-
-    @InjectMocks
-    private AfishaManager manager;
-    AfishaData firstForTest = new AfishaData(11, "Troll", "children");
-    AfishaData secondForTest = new AfishaData(12, "Troll2", "children");
-    AfishaData thirdForTest = new AfishaData(13, "Troll3", "children");
+    @BeforeEach
+    void setUp() {
+        manager.addFilm(filmToAdd);
+        expected = new Film[]{
+                new Film(33, "Dunkerk", "action"),
+                new Film(12, "Up", "cartoon"),
+                new Film(11, "Isle of dogs", "cartoon"),
+                new Film(10, "Joker", "tragedy"),
+                new Film(9, "Hotel Belgrad", "comedy"),
+                new Film(8, "Terminator2", "action/sci-fi"),
+                new Film(7, "Onward", "cartoon"),
+                new Film(6, "Midsommar", "thriller"),
+                new Film(5, "Interstellar", "sci-fi"),
+                new Film(4, "Number One", "comedy")
+        };
+    }
 
     @Test
-    void shouldShowAddedFilms() {
-        AfishaData[] returned = new AfishaData[]{firstForTest, secondForTest};
-        doReturn(returned).when(list).findAll();
-        doNothing().when(list).save(thirdForTest);
-        manager.addFilm(thirdForTest);
-        manager.setNeededQuantityOfFilmsToAdd(2);
-        AfishaData[] expected = new AfishaData[]{secondForTest, firstForTest};
-        AfishaData[] actual = manager.showAddedFilms();
+    public void shouldShowPositive() {
+        Film[] actual = manager.getLastAdded(7);
+        Film[] expected = {
+                new Film(33, "Dunkerk", "action"),
+                new Film(12, "Up", "cartoon"),
+                new Film(11, "Isle of dogs", "cartoon"),
+                new Film(10, "Joker", "tragedy"),
+                new Film(9, "Hotel Belgrad", "comedy"),
+                new Film(8, "Terminator2", "action/sci-fi"),
+                new Film(7, "Onward", "cartoon")
+        };
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void shouldShowMoreThanMax() {
+        Film[] actual = manager.getLastAdded(50);
+        assertArrayEquals(expected, actual);
+    }
 
     @Test
-    void shouldShowAll() {
-        AfishaData[] returned = new AfishaData[]{firstForTest, secondForTest};
-        doReturn(returned).when(list).findAll();
-        AfishaData[] expected = new AfishaData[]{firstForTest, secondForTest};
-        AfishaData[] actual = manager.showAll();
+    public void shouldShowNothing() {
+        Film[] actual = manager.getLastAdded(0);
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldShowNegative() {
+        Film[] actual = manager.getLastAdded(-1);
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldShowAboveMax() {
+        Film[] actual = manager.getLastAdded(11);
         assertArrayEquals(expected, actual);
     }
 }
