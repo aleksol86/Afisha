@@ -1,6 +1,6 @@
 package ru.netology.domain;
 
-public class AfishaManager {
+public class FilmManager {
     Film[] films = {
             new Film(1, "Bloodshot", "action"),
             new Film(2, "The Gentlemen", "action"),
@@ -9,7 +9,7 @@ public class AfishaManager {
             new Film(5, "Interstellar", "sci-fi"),
             new Film(6, "Midsommar", "thriller"),
             new Film(7, "Onward", "cartoon"),
-            new Film(8, "Terminator 2", "action/sci-fi"),
+            new Film(8, "Terminator2", "action/sci-fi"),
             new Film(9, "Hotel Belgrad", "comedy"),
             new Film(10, "Joker", "tragedy"),
             new Film(11, "Isle of dogs", "cartoon"),

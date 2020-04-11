@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class AfishaManagerTest {
-    private AfishaManager manager = new AfishaManager();
+class FilmManagerTest {
+    private FilmManager manager = new FilmManager();
     private Film filmToAdd = new Film(33, "Dunkerk", "action");
     private Film[] expected;
 
