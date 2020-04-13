@@ -3,11 +3,13 @@ package ru.netology.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.manager.AfishaManager;
+import ru.netology.repository.AfishaRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class AfishaManagerTest {
-    private AfishaManager manager = new AfishaManager();
+    AfishaRepository repository = new AfishaRepository();
+    AfishaManager manager = new AfishaManager(repository);
     private Film filmToAdd = new Film(33, "Dunkerk", "action");
     private Film[] expected;
 
