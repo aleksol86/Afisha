@@ -1,8 +1,10 @@
-package ru.netology.domain;
+package ru.netology.manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.netology.repository.AfishaRepository;
+import ru.netology.domain.Film;
 
 @Data
 @NoArgsConstructor
