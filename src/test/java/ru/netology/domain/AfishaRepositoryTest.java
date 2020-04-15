@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.repository.AfishaRepository;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AfishaRepositoryTest {
     private AfishaRepository repository = new AfishaRepository();
@@ -87,6 +86,13 @@ class AfishaRepositoryTest {
                 new Film(12, "Up", "cartoon")
         };
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void shouldRemoveIfNotExists(){
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            repository.removeById(35);
+        });
     }
 
     @Test
