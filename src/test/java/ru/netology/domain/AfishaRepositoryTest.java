@@ -12,7 +12,7 @@ class AfishaRepositoryTest {
     private Film filmToAdd = new Film(33, "Dunkerk", "action");
 
     @BeforeEach
-    void SetUp() {
+    void setUp() {
         repository.save(filmToAdd);
     }
 
