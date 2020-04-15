@@ -1,4 +1,6 @@
-package ru.netology.domain;
+package ru.netology.manager;
+
+import ru.netology.domain.Film;
 
 public class FilmManager {
     Film[] films = {
